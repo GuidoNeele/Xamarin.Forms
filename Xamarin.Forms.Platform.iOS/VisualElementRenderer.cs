@@ -318,7 +318,7 @@ namespace Xamarin.Forms.Platform.MacOS
 			{
 				_blur.Frame = Bounds;
 				if (_blur.Superview == null)
-					Superview.Add(_blur);
+					AddSubview(_blur);
 			}
 		}
 #else
@@ -488,8 +488,13 @@ namespace Xamarin.Forms.Platform.MacOS
 					break;
 			}
 
-			_blur = new UIVisualEffectView(blurEffect);
-			_blur.UserInteractionEnabled = false;
+			_blur = new UIVisualEffectView(blurEffect)
+			{
+				UserInteractionEnabled = false,
+				TranslatesAutoresizingMaskIntoConstraints = false,
+				AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+			};
+
 			LayoutSubviews();
 		}
 #endif
